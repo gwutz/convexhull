@@ -1,6 +1,6 @@
-/* main.c
+/* utli.c
  *
- * Copyright (C) 2017 Günther Wutz <info@gunibert.de>
+ * Copyright (C) 2017 Guenther Wutz <info@gunibert.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <glib.h>
 #include "util.h"
-#include "jarvis.h"
 
-gint
-main (gint   argc,
-      gchar *argv[])
+GList*
+generate_random_points (gint n)
 {
-	g_set_prgname ("Jarvis March");
-	g_set_application_name ("Jarvis March");
+	GList *list = NULL;
+	GRand *rand = g_rand_new ();
 
-	GList *points = generate_random_points (20);
-	JarvisMarch *jm = jarvis_march_new ();
-	jarvis_march_execute_algorithm (jm, points);
+	for (int i = 0; i < n; i++) {
+		gint x = g_rand_int_range (rand, -15, 15);
+		gint y = g_rand_int_range (rand, -15, 15);
 
-	return 0;
+		SalPoint *p = sal_point_new (x, y);
+
+		list = g_list_prepend (list, p);
+	}
+
+	return list;
 }

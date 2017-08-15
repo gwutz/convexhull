@@ -1,5 +1,13 @@
 jarvis_sources = [
-	'main.c'
+	'main.c',
+	'jarvis.c',
+	'util.c'
 ]
 
-executable('jarvis-march', jarvis_sources, dependencies: [glib, gobject])
+util_inc = include_directories('.')
+
+executable('jarvis-march', jarvis_sources,
+	dependencies: [glib, gobject],
+	link_with: sallib,
+	include_directories: [sallib_inc]
+	)

@@ -1,6 +1,6 @@
-/* main.c
+/* random-points-test.c
  *
- * Copyright (C) 2017 Günther Wutz <info@gunibert.de>
+ * Copyright (C) 2017 Guenther Wutz <info@gunibert.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include <glib.h>
+#include <locale.h>
 #include "util.h"
-#include "jarvis.h"
+
+void
+test_random_points ()
+{
+	gint n = 5;
+	GList *points = generate_random_points (n);
+
+	g_assert_cmpint (g_list_length (points), ==, n);
+
+	for (GList *next = points; next != NULL; next = next->next) {
+		SalPoint *p = (SalPoint *)next->data;
+
+		g_assert (SAL_IS_POINT (p));
+	}
+}
 
 gint
 main (gint   argc,
       gchar *argv[])
 {
-	g_set_prgname ("Jarvis March");
-	g_set_application_name ("Jarvis March");
 
-	GList *points = generate_random_points (20);
-	JarvisMarch *jm = jarvis_march_new ();
-	jarvis_march_execute_algorithm (jm, points);
+	setlocale (LC_ALL, "");
 
-	return 0;
+	g_test_init (&argc, &argv, NULL);
+
+	g_test_add_func ("/randompoints/randompoints", test_random_points);
+
+	return g_test_run ();
 }

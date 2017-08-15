@@ -1,6 +1,6 @@
-/* main.c
+/* jarvis.h
  *
- * Copyright (C) 2017 Günther Wutz <info@gunibert.de>
+ * Copyright (C) 2017 Guenther Wutz <info@gunibert.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include "util.h"
-#include "jarvis.h"
+#ifndef JARVIS_MARCH_H
+#define JARVIS_MARCH_H
 
-gint
-main (gint   argc,
-      gchar *argv[])
-{
-	g_set_prgname ("Jarvis March");
-	g_set_application_name ("Jarvis March");
+#include <glib-object.h>
+#include "sal-point.h"
 
-	GList *points = generate_random_points (20);
-	JarvisMarch *jm = jarvis_march_new ();
-	jarvis_march_execute_algorithm (jm, points);
+G_BEGIN_DECLS
 
-	return 0;
-}
+#define JARVIS_TYPE_MARCH (jarvis_march_get_type())
+
+G_DECLARE_FINAL_TYPE (JarvisMarch, jarvis_march, JARVIS, MARCH, GObject)
+
+JarvisMarch *jarvis_march_new (void);
+GList *jarvis_march_execute_algorithm (JarvisMarch *self, GList *points);
+
+G_END_DECLS
+
+#endif /* JARVIS_MARCH_H */
+
