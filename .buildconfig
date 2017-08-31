@@ -1,0 +1,9 @@
+[default]
+name=Vorgabe
+device=local
+runtime=flatpak:org.gnome.Sdk/x86_64/3.24
+config-opts=-Ddefault_library=static
+run-opts=
+prefix=/app
+app-id=
+default=true

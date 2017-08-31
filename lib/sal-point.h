@@ -35,6 +35,7 @@ SalPoint *sal_point_sub (SalPoint *self,
                          SalPoint *other);
 gint      sal_point_crossproduct (SalPoint *self,
                                   SalPoint *other);
+gchar    *sal_point_to_string (SalPoint *self);
 G_END_DECLS
 
 #endif /* SAL_POINT_H */

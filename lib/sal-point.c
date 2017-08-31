@@ -184,3 +184,9 @@ sal_point_crossproduct (SalPoint *self,
 
 	return self->x * other->y - other->x * self->y;
 }
+
+gchar*
+sal_point_to_string (SalPoint *self)
+{
+	return g_strdup_printf ("%d %d", self->x, self->x);
+}

@@ -1,4 +1,4 @@
-/* utli.c
+/* jarvis-application-window.h
  *
  * Copyright (C) 2017 Guenther Wutz <info@gunibert.de>
  *
@@ -15,22 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "util.h"
 
-GList*
-generate_random_points (gint n)
-{
-	GList *list = NULL;
-	GRand *rand = g_rand_new ();
+#ifndef JARVIS_APPLICATION_WINDOW_H
+#define JARVIS_APPLICATION_WINDOW_H
 
-	for (int i = 0; i < n; i++) {
-		gint x = g_rand_int_range (rand, -150, 150);
-		gint y = g_rand_int_range (rand, -150, 150);
+#include <gtk/gtk.h>
 
-		SalPoint *p = sal_point_new (x, y);
+G_BEGIN_DECLS
 
-		list = g_list_prepend (list, p);
-	}
+#define JARVIS_TYPE_APPLICATION_WINDOW (jarvis_application_window_get_type())
 
-	return list;
-}
+G_DECLARE_FINAL_TYPE (JarvisApplicationWindow, jarvis_application_window, JARVIS, APPLICATION_WINDOW, GtkApplicationWindow)
+
+JarvisApplicationWindow *jarvis_application_window_new (GtkApplication *app, GList *points, GList *hull);
+
+G_END_DECLS
+
+#endif /* JARVIS_APPLICATION_WINDOW_H */
+
